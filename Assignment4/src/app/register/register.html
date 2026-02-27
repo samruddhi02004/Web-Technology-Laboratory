@@ -1,0 +1,108 @@
+<div class="form-page">
+  <h2>Register Form</h2>
+
+  <form class="auth-form" novalidate>
+    <div class="field">
+      <label for="first-name">First Name</label>
+      <input #firstName id="first-name" type="text" placeholder="Enter first name" />
+    </div>
+
+    <div class="field">
+      <label for="last-name">Last Name</label>
+      <input #lastName id="last-name" type="text" placeholder="Enter last name" />
+    </div>
+
+    <div class="field">
+      <label for="username">Username</label>
+      <input #username id="username" type="text" placeholder="Enter username" />
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input #email id="email" type="email" placeholder="Enter email" />
+    </div>
+
+    <div class="field">
+      <label for="mobile">Mobile</label>
+      <input #mobile id="mobile" type="tel" placeholder="Enter mobile number" />
+    </div>
+
+    <div class="field">
+      <label for="dob">Date of Birth</label>
+      <input #dob id="dob" type="date" />
+    </div>
+
+    <div class="field">
+      <label for="gender">Gender</label>
+      <input #gender id="gender" type="text" placeholder="Enter gender" />
+    </div>
+
+    <div class="field">
+      <label for="address">Address Line</label>
+      <input #address id="address" type="text" placeholder="Enter address" />
+    </div>
+
+    <div class="field">
+      <label for="city">City</label>
+      <input #city id="city" type="text" placeholder="Enter city" />
+    </div>
+
+    <div class="field">
+      <label for="state">State</label>
+      <input #state id="state" type="text" placeholder="Enter state" />
+    </div>
+
+    <div class="field">
+      <label for="country">Country</label>
+      <input #country id="country" type="text" placeholder="Enter country" />
+    </div>
+
+    <div class="field">
+      <label for="pincode">Pincode</label>
+      <input #pincode id="pincode" type="text" placeholder="Enter pincode" />
+    </div>
+
+    <div class="field">
+      <label for="occupation">Occupation</label>
+      <input #occupation id="occupation" type="text" placeholder="Enter occupation" />
+    </div>
+
+    <div class="field">
+      <label for="reg-password">Password</label>
+      <input #regPassword id="reg-password" type="password" placeholder="Enter password" />
+    </div>
+
+    <div class="field">
+      <label for="confirm-password">Confirm Password</label>
+      <input #confirmPassword id="confirm-password" type="password" placeholder="Confirm password" />
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        (click)="
+          onSave(
+            firstName.value,
+            lastName.value,
+            username.value,
+            email.value,
+            mobile.value,
+            dob.value,
+            gender.value,
+            address.value,
+            city.value,
+            state.value,
+            country.value,
+            pincode.value,
+            occupation.value,
+            regPassword.value,
+            confirmPassword.value
+          )
+        "
+      >
+        Save
+      </button>
+      <button type="button" routerLink="/login">Back to Login</button>
+    </div>
+  </form>
+</div>

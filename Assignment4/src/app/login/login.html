@@ -1,0 +1,35 @@
+<div class="form-page">
+  <h2>Login Form</h2>
+
+  <form class="auth-form" novalidate>
+    <div class="field">
+      <label for="username">Username</label>
+      <input #username id="username" type="text" placeholder="Enter username" />
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input #email id="email" type="email" placeholder="Enter email" />
+    </div>
+
+    <div class="field">
+      <label for="mobile">Mobile</label>
+      <input #mobile id="mobile" type="tel" placeholder="Enter mobile number" />
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input #password id="password" type="password" placeholder="Enter password" />
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        (click)="onLogin(username.value, email.value, mobile.value, password.value)"
+      >
+        Login
+      </button>
+      <button type="button" routerLink="/register">Register</button>
+    </div>
+  </form>
+</div>

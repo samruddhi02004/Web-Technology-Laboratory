@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 24px 12px;
+  background: linear-gradient(135deg, #eef4ff, #f6f9ff);
+}
+
+.form-page {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  color: #1e3a8a;
+}
+
+.auth-form {
+  border: 1px solid #c9d6f0;
+  border-radius: 10px;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.12);
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #b7c6e8;
+  border-radius: 6px;
+  background: #fbfdff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button[routerLink] {
+  background: #0f766e;
+}
+
+button[routerLink]:hover {
+  background: #0d5f59;
+}
