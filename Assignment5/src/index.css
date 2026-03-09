@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg-start: #f8fafc;
+  --bg-end: #e2e8f0;
+  --text-primary: #0f172a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  color: var(--text-primary);
+  background: radial-gradient(circle at 10% 0%, #dbeafe 0%, transparent 36%),
+    radial-gradient(circle at 100% 80%, #ccfbf1 0%, transparent 30%),
+    linear-gradient(165deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
