@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management - TaskPro</title>
+    <link rel="stylesheet" href="/api/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-tasks"></i> TaskPro</h2>
+                <p class="subtitle">Management System</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/api/index.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="/api/employees.html" class="nav-link"><i class="fas fa-users"></i> Employees</a></li>
+                    <li><a href="/api/tasks.html" class="nav-link active"><i class="fas fa-list-check"></i> Tasks</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>&copy; 2024 TaskPro</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Task Management</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" onclick="openAddTaskModal()">
+                        <i class="fas fa-plus"></i> Create Task
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+                <!-- Filters and Search -->
+                <div class="filters-section">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="task-search-input" placeholder="Search tasks..." 
+                               onkeyup="debounceTaskSearch(this.value)">
+                    </div>
+                    <div class="filter-group">
+                        <select id="status-filter" onchange="filterByStatus(this.value)">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="COMPLETED">Completed</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="employee-filter" onchange="filterByEmployee(this.value)">
+                            <option value="">All Employees</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tasks Cards View -->
+                <div class="tasks-container" id="tasks-container">
+                    <div class="text-center">
+                        <p>Loading tasks...</p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="tasks-pagination">
+                    <!-- Pagination buttons will be added here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Task Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="task-modal-title">Create Task</h2>
+                <button class="close-btn" onclick="closeTaskModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Title *</label>
+                        <input type="text" id="task-title" required>
+                        <span class="error-message" id="task-title-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-employee">Employee *</label>
+                            <select id="task-employee" required>
+                                <option value="">Select Employee</option>
+                            </select>
+                            <span class="error-message" id="task-employee-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-deadline">Deadline *</label>
+                            <input type="datetime-local" id="task-deadline" required>
+                            <span class="error-message" id="task-deadline-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-priority">Priority</label>
+                            <select id="task-priority">
+                                <option value="1">Low</option>
+                                <option value="2" selected>Medium</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-status">Status</label>
+                            <select id="task-status">
+                                <option value="PENDING" selected>Pending</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                                <option value="COMPLETED">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">Save Task</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/api/js/app.js"></script>
+    <script src="/api/js/tasks.js"></script>
+</body>
+</html>

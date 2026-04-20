@@ -1,0 +1,176 @@
+{
+  "info": {
+    "name": "Employee Task Management System API",
+    "description": "Complete API collection for testing Employee Task Management System",
+    "version": "1.0.0"
+  },
+  "baseUrl": "http://localhost:8080/api",
+  "requests": [
+    {
+      "name": "Create Employee",
+      "method": "POST",
+      "url": "http://localhost:8080/api/employees",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "Jane Doe",
+        "email": "jane.doe@company.com",
+        "department": "Engineering"
+      }
+    },
+    {
+      "name": "Get All Employees",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees?page=0&size=10"
+    },
+    {
+      "name": "Get Employee by ID",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees/1"
+    },
+    {
+      "name": "Get Employee Details with Tasks",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees/1/details"
+    },
+    {
+      "name": "Update Employee",
+      "method": "PUT",
+      "url": "http://localhost:8080/api/employees/1",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "Jane Doe Updated",
+        "email": "jane.doe.updated@company.com",
+        "department": "Sales"
+      }
+    },
+    {
+      "name": "Delete Employee",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/employees/1"
+    },
+    {
+      "name": "Search Employees",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees/search?searchTerm=john&page=0&size=10"
+    },
+    {
+      "name": "Get Employees by Department",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees/department/Engineering?page=0&size=10"
+    },
+    {
+      "name": "Get Employees by Role",
+      "method": "GET",
+      "url": "http://localhost:8080/api/employees/role/EMPLOYEE"
+    },
+    {
+      "name": "Create Task",
+      "method": "POST",
+      "url": "http://localhost:8080/api/tasks",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "title": "Develop New Feature",
+        "description": "Create dashboard UI components",
+        "employeeId": 1,
+        "deadline": "2024-06-15T17:00:00",
+        "priority": 2,
+        "status": "PENDING"
+      }
+    },
+    {
+      "name": "Get All Tasks",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks?page=0&size=10"
+    },
+    {
+      "name": "Get Task by ID",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/1"
+    },
+    {
+      "name": "Update Task",
+      "method": "PUT",
+      "url": "http://localhost:8080/api/tasks/1",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "title": "Develop New Feature - Updated",
+        "status": "IN_PROGRESS",
+        "priority": 3
+      }
+    },
+    {
+      "name": "Delete Task",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/tasks/1"
+    },
+    {
+      "name": "Get Tasks by Employee",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/employee/1?page=0&size=10"
+    },
+    {
+      "name": "Get Tasks by Status - Pending",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/status/PENDING?page=0&size=10"
+    },
+    {
+      "name": "Get Tasks by Status - In Progress",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/status/IN_PROGRESS?page=0&size=10"
+    },
+    {
+      "name": "Get Tasks by Status - Completed",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/status/COMPLETED?page=0&size=10"
+    },
+    {
+      "name": "Get Overdue Tasks",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/overdue"
+    },
+    {
+      "name": "Search Tasks",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/search?searchTerm=feature&page=0&size=10"
+    },
+    {
+      "name": "Get Tasks by Date Range",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/date-range?status=PENDING&startDate=2024-05-01T00:00:00&endDate=2024-06-30T23:59:59&page=0&size=10"
+    }
+  ],
+  "testScenarios": {
+    "basicCRUD": [
+      "Create Employee",
+      "Get All Employees",
+      "Get Employee by ID",
+      "Update Employee",
+      "Delete Employee"
+    ],
+    "taskManagement": [
+      "Create Task",
+      "Get All Tasks",
+      "Get Task by ID",
+      "Update Task",
+      "Get Tasks by Status - Pending",
+      "Get Overdue Tasks",
+      "Delete Task"
+    ],
+    "advancedFiltering": [
+      "Search Employees",
+      "Get Employees by Department",
+      "Get Employees by Role",
+      "Get Tasks by Employee",
+      "Search Tasks",
+      "Get Tasks by Date Range"
+    ]
+  }
+}

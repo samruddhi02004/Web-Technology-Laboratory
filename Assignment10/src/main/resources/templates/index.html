@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Task Management Dashboard</title>
+    <link rel="stylesheet" href="/api/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-tasks"></i> TaskPro</h2>
+                <p class="subtitle">Management System</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/api/index.html" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="/api/employees.html" class="nav-link"><i class="fas fa-users"></i> Employees</a></li>
+                    <li><a href="/api/tasks.html" class="nav-link"><i class="fas fa-list-check"></i> Tasks</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>&copy; 2024 TaskPro</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-info">
+                        <span><i class="far fa-calendar"></i> <span id="current-date"></span></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon total-employees">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-employees">0</h3>
+                            <p>Total Employees</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon total-tasks">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-tasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon pending-tasks">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="pending-tasks">0</h3>
+                            <p>Pending Tasks</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon overdue-tasks">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="overdue-tasks">0</h3>
+                            <p>Overdue Tasks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts and Tables Section -->
+                <div class="dashboard-grid">
+                    <!-- Recent Tasks -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Recent Tasks</h2>
+                            <a href="/api/tasks.html" class="view-all-btn">View All</a>
+                        </div>
+                        <div class="card-content">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Employee</th>
+                                        <th>Status</th>
+                                        <th>Deadline</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-tasks-tbody">
+                                    <tr>
+                                        <td colspan="4" class="text-center">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Department Distribution -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Top Departments</h2>
+                        </div>
+                        <div class="card-content">
+                            <div id="departments-list" class="department-list">
+                                <p class="text-center">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Status Distribution -->
+                <div class="card card-full-width">
+                    <div class="card-header">
+                        <h2>Task Status Overview</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <div class="status-badge pending"></div>
+                                <span>Pending</span>
+                                <p id="status-pending">0</p>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-badge in-progress"></div>
+                                <span>In Progress</span>
+                                <p id="status-in-progress">0</p>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-badge completed"></div>
+                                <span>Completed</span>
+                                <p id="status-completed">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/api/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            
+            // Update date
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = 
+                new Date().toLocaleDateString('en-US', options);
+        });
+
+        async function loadDashboardData() {
+            try {
+                // Load employees count
+                const employeesRes = await fetch('/api/employees?page=0&size=1');
+                const employeesData = await employeesRes.json();
+                document.getElementById('total-employees').textContent = employeesData.totalElements || 0;
+
+                // Load tasks
+                const tasksRes = await fetch('/api/tasks?page=0&size=5');
+                const tasksData = await tasksRes.json();
+                document.getElementById('total-tasks').textContent = tasksData.totalElements || 0;
+
+                // Load overdue tasks
+                const overdueRes = await fetch('/api/tasks/overdue');
+                const overdueData = await overdueRes.json();
+                document.getElementById('overdue-tasks').textContent = overdueData.length || 0;
+
+                // Load task status counts
+                const pendingRes = await fetch('/api/tasks/status/pending?page=0&size=1');
+                const pendingData = await pendingRes.json();
+                document.getElementById('pending-tasks').textContent = pendingData.totalElements || 0;
+                document.getElementById('status-pending').textContent = pendingData.totalElements || 0;
+
+                const inProgressRes = await fetch('/api/tasks/status/in_progress?page=0&size=1');
+                const inProgressData = await inProgressRes.json();
+                document.getElementById('status-in-progress').textContent = inProgressData.totalElements || 0;
+
+                const completedRes = await fetch('/api/tasks/status/completed?page=0&size=1');
+                const completedData = await completedRes.json();
+                document.getElementById('status-completed').textContent = completedData.totalElements || 0;
+
+                // Load recent tasks
+                const recentTasksRes = await fetch('/api/tasks?page=0&size=5');
+                const recentTasksData = await recentTasksRes.json();
+                const tbody = document.getElementById('recent-tasks-tbody');
+                tbody.innerHTML = '';
+
+                if (recentTasksData.content && recentTasksData.content.length > 0) {
+                    recentTasksData.content.forEach(task => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><strong>${task.title}</strong></td>
+                            <td>${task.employeeName}</td>
+                            <td><span class="badge ${task.status.toLowerCase()}">${task.status}</span></td>
+                            <td>${new Date(task.deadline).toLocaleDateString()}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center">No tasks found</td></tr>';
+                }
+
+                // Load department distribution
+                const allEmployeesRes = await fetch('/api/employees?page=0&size=100');
+                const allEmployeesData = await allEmployeesRes.json();
+                
+                if (allEmployeesData.content) {
+                    const deptMap = {};
+                    allEmployeesData.content.forEach(emp => {
+                        deptMap[emp.department] = (deptMap[emp.department] || 0) + 1;
+                    });
+
+                    const deptList = document.getElementById('departments-list');
+                    deptList.innerHTML = '';
+                    
+                    Object.entries(deptMap).slice(0, 5).forEach(([dept, count]) => {
+                        const item = document.createElement('div');
+                        item.className = 'dept-item';
+                        item.innerHTML = `
+                            <div class="dept-info">
+                                <span class="dept-name">${dept}</span>
+                                <span class="dept-count">${count} employees</span>
+                            </div>
+                            <div class="dept-progress">
+                                <div class="progress-bar" style="width: ${(count / allEmployeesData.totalElements * 100)}%"></div>
+                            </div>
+                        `;
+                        deptList.appendChild(item);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+    </script>
+</body>
+</html>
